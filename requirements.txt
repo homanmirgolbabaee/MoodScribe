@@ -8,3 +8,4 @@ plotly
 streamlit-plotly-events
 pytube
 hugchat
+streamlit-option-menu
