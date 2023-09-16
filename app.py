@@ -247,11 +247,10 @@ def article_processing(user_text):
     st.text_area("Summarized Transcript:", summarized_text, height=250)
 def classify_text_with_clarifai(user_text):
     # Define necessary variables
-    PAT = '51cd7e5b97bc4ebc8ef94e0e245cbf00'
-    USER_ID = 'homanfor1'
-    APP_ID = 'moodDetector'
-    WORKFLOW_ID = 'workflow-fa7a13'
-    TEXT_FILE_URL = 'https://samples.clarifai.com/negative_sentence_12.txt'
+    PAT =  st.secrets["clarifai_classify"]["PAT"]
+    USER_ID =  st.secrets["clarifai_classify"]["USER_ID"]
+    APP_ID =  st.secrets["clarifai_classify"]["APP_ID"]
+    WORKFLOW_ID =  st.secrets["clarifai_classify"]["WORKFLOW_ID"]
 
     channel = ClarifaiChannel.get_grpc_channel()
     stub = service_pb2_grpc.V2Stub(channel)
