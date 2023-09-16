@@ -6,3 +6,5 @@ weaviate-client
 pandas
 plotly
 streamlit-plotly-events
+os
+pytube
