@@ -1,43 +1,71 @@
-📖 README: MoodScribe
-🌟 Introduction
-MoodScribe is a versatile application that offers a range of functionalities to enhance your content processing experience. Whether you want to transcribe a YouTube video, process articles, interact with a database, or chat with a bot, MoodScribe has got you covered!
+# 📖 MoodScribe
 
+---
 
-🚀 Features
-1️⃣ Youtube/Upload:
-🎤 Input a YouTube video URL or upload an audio file to obtain a precise transcription of the content.
+## 📑 Table of Contents
 
-2️⃣ Article Processing:
-📑 Use the transcription or your text for article processing.
-📋 Obtain a summarized version of the content. Adjust word limits to suit your preference!
-😊 Gauge the mood of your content.
-🏷️ Classify or label the content.
-💾 Seamlessly save the processed information to Weaviate database.
-3️⃣ Observe Weaviate Database:
-📊 Visualize the most frequent moods in the database with just a click!
-📥 Download the transcriptions and database mood entries as a CSV for further use.
-4️⃣ ChatBot:
-💬 Dive into conversations with our HugChat bot instance.
-🎥 The bot can even provide YouTube video URLs based on certain prompt formats.
+1. [Introduction](#-introduction)
+2. [Features](#-features)
+   - [Youtube/Upload](#️⃣-youtubeupload)
+   - [Article Processing](#️⃣-article-processing)
+   - [Observe Weaviate Database](#️⃣-observe-weaviate-database)
+   - [ChatBot](#️⃣-chatbot)
+3. [Libraries and Technologies Used](#-libraries-and-technologies-used)
+4. [Key Functions](#-key-functions)
 
-📚 Libraries and Technologies Used
-Core Technologies:
-AssemblyAI: For accurate audio transcriptions.
-Weaviate: Used as the database backbone.
-Streamlit: Framework for the entire application.
-Clarifai: For leveraging GPT, mood detections, and classification models.
+---
 
-Third-party Libraries:
-Plotly: For stellar visualizations within Streamlit.
-HugChat: Powers our interactive chatbot.
+## 🌟 Introduction
 
+**MoodScribe** is a versatile application offering a suite of functionalities designed to revolutionize your content processing journey. Whether transcribing a YouTube video, processing articles, interacting with a database, or chatting with our bot, MoodScribe ensures an unparalleled experience!
 
-🔧 Key Functions
-Here are some of the main functions that power MoodScribe:
+---
 
-save_mood_to_weaviate(mood, transcription)
-get_all_moods_and_transcriptions_from_weaviate()
-transcribe_audio(file)
-transcribe_youtube(url)
-get_mood_clarifai(sentence)
-... (and many more!)
+## 🚀 Features
+
+### 1️⃣ **Youtube/Upload**: 
+- 🎤 Provide a YouTube video URL or upload an audio file to acquire an exact transcription.
+
+### 2️⃣ **Article Processing**:
+- 📑 Leverage your transcription or any text for advanced article processing.
+- 📋 Get concise content summaries and set your preferred word limits.
+- 😊 Understand the mood permeating your content.
+- 🏷️ Achieve precise content classification or labeling.
+- 💾 Directly save processed insights to the Weaviate database.
+
+### 3️⃣ **Observe Weaviate Database**:
+- 📊 Instantly visualize dominant moods in your database.
+- 📥 Facilitate further analysis by downloading transcriptions and mood data as CSV.
+
+### 4️⃣ **ChatBot**:
+- 💬 Engage in intuitive interactions with the HugChat bot.
+- 🎥 Receive YouTube video URL recommendations based on specific prompt inputs.
+
+---
+
+## 📚 Libraries and Technologies Used
+
+### Core Technologies:
+- **AssemblyAI**: Powers precision audio transcriptions.
+- **Weaviate**: The foundational database structure.
+- **Streamlit**: The holistic application framework.
+- **Clarifai**: Utilized for GPT, mood discernment, and classification models.
+
+### Third-party Libraries:
+- **Plotly**: Enables immersive visualizations within Streamlit.
+- **HugChat**: The heartbeat of our conversational chatbot.
+
+---
+
+## 🔧 Key Functions
+
+Dive deeper into **MoodScribe** with some of our pivotal functions:
+
+- `save_mood_to_weaviate(mood, transcription)`
+- `get_all_moods_and_transcriptions_from_weaviate()`
+- `transcribe_audio(file)`
+- `transcribe_youtube(url)`
+- `get_mood_clarifai(sentence)`
+- ... and more to explore!
+
+---
