@@ -1,5 +1,5 @@
 # 📖 MoodScribe
-
+T
 ---
 
 ## 📑 Table of Contents
@@ -12,6 +12,7 @@
    - [ChatBot](#️⃣-chatbot)
 3. [Libraries and Technologies Used](#-libraries-and-technologies-used)
 4. [Key Functions](#-key-functions)
+5. [Quick Access](#=quick-acess)
 
 ---
 
@@ -67,5 +68,21 @@ Dive deeper into **MoodScribe** with some of our pivotal functions:
 - `transcribe_youtube(url)`
 - `get_mood_clarifai(sentence)`
 - ... and more to explore!
+
+---
+## ☁️ Access MoodScribe on Streamlit Cloud
+
+For those who want to dive right in and use **MoodScribe** without a local setup, we've got you covered! The application is hosted on Streamlit Cloud, ensuring a smooth user experience without the need for manual installations.
+
+### Quick Access:
+
+1. Click on the link below to instantly access **MoodScribe**:
+   [MoodScribe on Streamlit Cloud](https://moodscribe-efqra78ex4mfrgrqis37xw.streamlit.app/)
+
+2. Explore the features and capabilities of the application right from your browser.
+
+3. Remember to bookmark the link for easy access in the future!
+
+Enjoy the seamless experience of **MoodScribe** hosted on Streamlit Cloud!
 
 ---
