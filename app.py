@@ -154,7 +154,7 @@ def set_page_background():
         f"""
         <style>
         .stApp {{
-            background-image: url("https://images.unsplash.com/photo-1553095066-5014bc7b7f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8d2FsbCUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D&w=1000&q=80");
+            background-image: url("https://images.unsplash.com/photo-1675173503270-d5e0ec0e6fc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80");
             background-attachment: fixed;
             background-size: cover;
         }}
