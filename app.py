@@ -1,4 +1,6 @@
 import streamlit as st
+from hugchat import hugchat
+from hugchat.login import Login
 import assemblyai as aai
 from pytube import YouTube
 import os
@@ -11,7 +13,9 @@ import pandas as pd
 import plotly.express as px
 from streamlit_plotly_events import plotly_events
 import plotly.graph_objects as go
-
+import streamlit as st
+from streamlit_option_menu import option_menu
+from pytube import YouTube, Search
 
 # Configurations and Setups
 aai.settings.api_key = st.secrets["assemblyai"]["api_key"]
@@ -160,17 +164,37 @@ def set_page_background():
     )
 
 def display_sidebar():
+        
     """
     Displays the sidebar options and returns the selected method.
     """
-    user_type = st.sidebar.radio("", ["Standard User", "Content Creator (Soon!)", "Programmers (Soon!)"])
-    
+    user_type = st.sidebar.radio("", ["Standard User", "Content Creator (🔜)", "Programmers (🔜)"])
+
     if user_type == "Standard User":
         st.sidebar.header("Choose your method:")
-        method = st.sidebar.radio("", ["Youtube/Upload", "Article Processing", "Observe Weaviate Database"])
-        return method
+        
+        # Enhanced sidebar using option_menu component
+        methods = ["Youtube/Upload", "Article Processing", "Observe Weaviate Database", "ChatBot"]
+        
+        # Customize the appearance and icons of the option_menu
+        selected_method = option_menu(
+            "Standard Functionalities", 
+            methods,
+            icons=['film', 'newspaper', 'database', 'chat-dots-fill'],  # Enhanced icons for each method
+            menu_icon="list-ul",  # Icon for the menu title
+            styles={
+                "container": {"padding": "0!important", "background-color": "#1c0c3c"},
+                "menu-title": {"color": "#dc8c3c", "font-weight": "bold", "font-size": "20px"},
+                "icon": {"color": "#dc8c3c", "font-size": "20px", "margin-right": "10px"},
+                "nav-link": {"font-size": "18px", "text-align": "left", "margin": "0px", "--hover-color": "#2e1a4a"},
+                "nav-link-selected": {"background-color": "#4a56e2", "color": "white", "font-weight": "bold"},
+                "separator": {"border-color": "#4a56e2"}
+            }
+        )
 
-    # Placeholder for future methods
+        return selected_method
+
+        # Placeholder for future methods
     elif user_type == "Content Creator (Soon!)":
         st.sidebar.write("Stay tuned for exciting features!")
         return None
@@ -390,6 +414,11 @@ def plot_top_moods(mood_counts, top_n=3):
 
     return fig
 
+def get_youtube_link(query):
+    search_results = Search(query).results
+    if search_results:
+        return search_results[0].watch_url
+    return None
 
 def main():
     
@@ -466,8 +495,7 @@ def main():
             st.header("💾 Save to Weaviate Database")
             if st.button("Save Mood to Weaviate"):
                 save_mood_to_weaviate(st.session_state.mood, user_text)
-                st.success("Mood saved to Weaviate!")
-                  
+                st.success("Mood saved to Weaviate!")                
     elif method == "Observe Weaviate Database":
         with st.spinner("🔍 Fetching moods and transcriptions from Weaviate..."):
             moods_transcriptions = get_all_moods_and_transcriptions_from_weaviate()
@@ -491,7 +519,6 @@ def main():
                     mime="text/csv",
                 )
 
-
             with col3:
                 if st.button('Visualize Moods'):
                     mood_counts = get_mood_counts_from_weaviate()
@@ -501,9 +528,56 @@ def main():
 
             # Display the total count using st.metric() beneath the columns
             st.metric(label="Total Items in Database", value=len(df_moods_transcriptions), delta="1.0 +")
-    else:
-        st.write("No moods and transcriptions found in the database.")
-                            
+        else:
+            st.write("No moods and transcriptions found in the database.")
+    elif method == "ChatBot":
+        # App title
+        st.sidebar.title('🤗💬 HugChat')
+        # Retrieve credentials from secrets
+        hf_email = st.secrets['hugchat']['EMAIL']
+        hf_pass = st.secrets['hugchat']['PASS']
+
+        # Initial message for the chatbot
+        if "messages" not in st.session_state.keys():
+            st.session_state.messages = [{"role": "assistant", "content": "My name is ADMENAND but you can call me GREGOERY \n How may I Assist you Today?"}]
+
+        # Display chat messages
+        for message in st.session_state.messages:
+            with st.chat_message(message["role"]):
+                st.write(message["content"])
+
+        # Function for generating LLM response
+        def generate_response(prompt_input, email, passwd):
+            # Check if user's input matches a song request format
+            if '-' in prompt_input:
+                youtube_link = get_youtube_link(prompt_input)
+                if youtube_link:
+                    # Returns the video link to be displayed in the chat message.
+                    return f"Here you go, this is the link to your request!\n{youtube_link}"
+                else:
+                    return "Sorry, I couldn't find the song on YouTube."
+            # If not a song request, continue with the Chatbot's usual flow
+            # Hugging Face Login
+            sign = Login(email, passwd)
+            cookies = sign.login()
+            # Create ChatBot                        
+            chatbot = hugchat.ChatBot(cookies=cookies.get_dict())
+            return chatbot.chat(prompt_input)
+        # User-provided prompt
+        if prompt := st.chat_input():
+            st.session_state.messages.append({"role": "user", "content": prompt})
+            with st.chat_message("user"):
+                st.write(prompt)
+            
+        # Generate a new response if last message is not from assistant
+        if st.session_state.messages[-1]["role"] != "assistant":
+            with st.chat_message("assistant"):
+                with st.spinner("Thinking..."):
+                    response = generate_response(prompt, hf_email, hf_pass) 
+                    st.write(response) 
+            message = {"role": "assistant", "content": response}
+            st.session_state.messages.append(message)
+                     
           
 
                         
