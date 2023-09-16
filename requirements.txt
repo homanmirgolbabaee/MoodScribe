@@ -1,0 +1,6 @@
+streamlit
+PIL
+assemblyai
+pytube
+clarifai_grpc
+weaviate
