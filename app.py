@@ -1,5 +1,4 @@
 import streamlit as st
-from PIL import Image
 import assemblyai as aai
 from pytube import YouTube
 import os
