@@ -3,3 +3,6 @@ assemblyai
 pytube
 clarifai_grpc
 weaviate-client
+pandas
+plotly
+streamlit-plotly-events
