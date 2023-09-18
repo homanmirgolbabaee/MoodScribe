@@ -36,6 +36,9 @@ weaviate_client = weaviate.Client(
     auth_client_secret=auth_config
 )
 
+
+
+
 def initialize_schema():
     try:
         class_obj = {
@@ -154,7 +157,7 @@ def set_page_background():
         f"""
         <style>
         .stApp {{
-            background-image: url("https://images.unsplash.com/photo-1675173503270-d5e0ec0e6fc5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1887&q=80");
+            background-image: url("https://cdn.midjourney.com/59e387e5-b025-445a-9573-9ff32daaa623/0_0.webp");
             background-attachment: fixed;
             background-size: cover;
         }}
@@ -169,7 +172,6 @@ def display_sidebar():
     Displays the sidebar options and returns the selected method.
     """
     user_type = st.sidebar.radio("", ["Standard User", "Content Creator (🔜)", "Programmers (🔜)"])
-
     if user_type == "Standard User":
         st.sidebar.header("Choose your method:")
         
@@ -182,13 +184,38 @@ def display_sidebar():
             methods,
             icons=['film', 'newspaper', 'database', 'chat-dots-fill'],  # Enhanced icons for each method
             menu_icon="list-ul",  # Icon for the menu title
-            styles={
-                "container": {"padding": "0!important", "background-color": "#1c0c3c"},
-                "menu-title": {"color": "#dc8c3c", "font-weight": "bold", "font-size": "20px"},
-                "icon": {"color": "#dc8c3c", "font-size": "20px", "margin-right": "10px"},
-                "nav-link": {"font-size": "18px", "text-align": "left", "margin": "0px", "--hover-color": "#2e1a4a"},
-                "nav-link-selected": {"background-color": "#4a56e2", "color": "white", "font-weight": "bold"},
-                "separator": {"border-color": "#4a56e2"}
+            styles = {
+                "container": {
+                    "padding": "10px!important",
+                    "background-color": "#2d2d2d"  # Dark grey background, looks professional and less stark
+                },
+                "menu-title": {
+                    "color": "#f4a261",  # A more muted, but still warm color
+                    "font-weight": "700",  # Bolder weight for title
+                    "font-size": "22px",
+                    "margin-bottom": "10px"
+                },
+                "icon": {
+                    "color": "#f4a261",
+                    "font-size": "20px",
+                    "margin-right": "12px"
+                },
+                "nav-link": {
+                    "font-size": "18px",
+                    "text-align": "left",
+                    "margin": "5px 0",  # Small margin to space them out slightly
+                    "--hover-color": "#404040"  # Slightly lighter grey for hover
+                },
+                "nav-link-selected": {
+                    "background-color": "#556ee6",  # Brighter blue to stand out
+                    "color": "#ffffff",  # White for contrast
+                    "font-weight": "700",  # Bolder font weight for selected item
+                    "padding": "5px 10px"  # Padding to give the selection more presence
+                },
+                "separator": {
+                    "border-color": "#556ee6",
+                    "margin": "10px 0"  # Vertical margin to give breathing space around separators
+                }
             }
         )
 
@@ -247,10 +274,11 @@ def article_processing(user_text):
     st.text_area("Summarized Transcript:", summarized_text, height=250)
 def classify_text_with_clarifai(user_text):
     # Define necessary variables
-    PAT =  st.secrets["clarifai_classify"]["PAT"]
-    USER_ID =  st.secrets["clarifai_classify"]["USER_ID"]
-    APP_ID =  st.secrets["clarifai_classify"]["APP_ID"]
-    WORKFLOW_ID =  st.secrets["clarifai_classify"]["WORKFLOW_ID"]
+    PAT = '51cd7e5b97bc4ebc8ef94e0e245cbf00'
+    USER_ID = 'homanfor1'
+    APP_ID = 'moodDetector'
+    WORKFLOW_ID = 'workflow-fa7a13'
+    TEXT_FILE_URL = 'https://samples.clarifai.com/negative_sentence_12.txt'
 
     channel = ClarifaiChannel.get_grpc_channel()
     stub = service_pb2_grpc.V2Stub(channel)
@@ -581,4 +609,4 @@ def main():
 
                         
 if __name__ == '__main__':
-    main()
+    main()  
