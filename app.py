@@ -467,7 +467,7 @@ def main():
     method = display_sidebar()
 
     if method == "Youtube/Upload":
-        yt_url = st.text_input("🎥 Enter the YouTube video URL (or skip to upload an audio file):")
+        yt_url = st.text_input("🦜 Enter the YouTube video URL (or skip to upload an audio file):")
 
         if yt_url:
             keyword = st.text_input("🔍 Find in transcription:")
@@ -479,7 +479,7 @@ def main():
             display_transcription_results(st.session_state.transcription, keyword)
         
         else:
-            uploaded_file = st.file_uploader("🎵 Upload an audio file:", type=["ogg", "mp3", "wav"])
+            uploaded_file = st.file_uploader("📁 Upload an audio file:", type=["ogg", "mp3", "wav"])
             if uploaded_file:
                 keyword = st.text_input("🔍 Find in transcription:")
                 st.audio(uploaded_file, format='audio/ogg')
