@@ -1,7 +1,7 @@
 # 📖 MoodScribe
 
 ---
-
+## Watch the Tutorial-Demo by Cloning/Downloading the Repo 
 ## 📑 Table of Contents
 1. [Introduction](#-introduction)
 2. [Features](#-features)
