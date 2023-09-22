@@ -2,6 +2,7 @@
 
 ---
 ## Watch the Tutorial-Demo by Cloning/Downloading the Repo 
+** my free Waaviet sandbox will expire on 24 September **
 ## 📑 Table of Contents
 1. [Introduction](#-introduction)
 2. [Features](#-features)
