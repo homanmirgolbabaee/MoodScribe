@@ -30,36 +30,36 @@ channel = ClarifaiChannel.get_grpc_channel()
 stub = service_pb2_grpc.    V2Stub(channel)
 metadata = (('authorization', 'Key ' + PAT),)
 # Initiliazing weaviet 
-auth_config = weaviate.AuthApiKey(api_key=st.secrets["weaviate"]["api_key"])
-weaviate_client = weaviate.Client(
-    url=st.secrets["weaviate"]["url"],
-    auth_client_secret=auth_config
-)
+#auth_config = weaviate.AuthApiKey(api_key=st.secrets["weaviate"]["api_key"])
+#weaviate_client = weaviate.Client(
+#    url=st.secrets["weaviate"]["url"],
+#    auth_client_secret=auth_config
+#)
 
 
 
 
-def initialize_schema():
-    try:
-        class_obj = {
-            'class': 'MyClass',
-            'properties': [
-                {'name': 'mood', 'dataType': ['text']},
-                {'name': 'transcription', 'dataType': ['text']}
+#def initialize_schema():
+#    try:
+#        class_obj = {
+#            'class': 'MyClass',
+#            'properties': [
+#                {'name': 'mood', 'dataType': ['text']},
+#                {'name': 'transcription', 'dataType': ['text']}
                 # Add more properties as needed
-            ]
-        }
-        weaviate_client.schema.create_class(class_obj)
-    except weaviate.exceptions.UnexpectedStatusCodeException as e:
+#            ]
+#        }
+#        weaviate_client.schema.create_class(class_obj)
+#    except weaviate.exceptions.UnexpectedStatusCodeException as e:
         # Check the error message to see if it's because the class already exists
-        if 'class name "MyClass" already exists' in str(e):
+#        if 'class name "MyClass" already exists' in str(e):
             # If the class already exists, do nothing
-            pass
-        else:
+#            pass
+#        else:
             # If it's another error, raise it
-            raise e
+#            raise e
 # Call the function to ensure the schema is initialized
-initialize_schema()
+#initialize_schema()
 
 ########################
 #####################
@@ -73,26 +73,26 @@ def save_mood_to_weaviate(mood, transcription):
         "transcription": transcription
     }
     
-    try:
+#    try:
         # Use the create method to add data
-        weaviate_client.data_object.create(mood_data, "Mood")
-    except Exception as e:
-        st.error(f"Error saving mood and transcription to Weaviate: {e}")
+#        weaviate_client.data_object.create(mood_data, "Mood")
+#    except Exception as e:
+#        st.error(f"Error saving mood and transcription to Weaviate: {e}")
     
-    try:
+#    try:
         # Use the create method to add data
-        weaviate_client.data_object.create(mood_data, "Mood")
-    except Exception as e:
-        st.error(f"Error saving mood to Weaviate: {e}")
-
-def get_all_moods_and_transcriptions_from_weaviate():
-    """Retrieve all moods and transcriptions from Weaviate."""
+  #      weaviate_client.data_object.create(mood_data, "Mood")
+ #   except Exception as e:
+ #       st.error(f"Error saving mood to Weaviate: {e}")
+#
+#def get_all_moods_and_transcriptions_from_weaviate():
+#    """Retrieve all moods and transcriptions from Weaviate."""
     # Fetching both mood and transcription properties
-    query = weaviate_client.query.get("Mood", ["mood", "transcription"]).with_limit(100).do()
-    if "data" in query and "Get" in query["data"] and "Mood" in query["data"]["Get"]:
+#    query = weaviate_client.query.get("Mood", ["mood", "transcription"]).with_limit(100).do()
+#    if "data" in query and "Get" in query["data"] and "Mood" in query["data"]["Get"]:
         # Creating a list of dictionaries for each mood and transcription
-        return [{"Mood": entry["mood"], "Transcription": entry["transcription"]} for entry in query["data"]["Get"]["Mood"]]
-    return []
+#        return [{"Mood": entry["mood"], "Transcription": entry["transcription"]} for entry in query["data"]["Get"]["Mood"]]
+#    return []
 
 def transcribe_audio(file):
     """Transcribes an audio file."""
@@ -265,9 +265,9 @@ def article_processing(user_text):
     st.success(f"🎉 Predicted Mood using Clarifai: **{mood}**")
 
     # Add button to save mood to Weaviate
-    if mood and st.button("Save Mood to Weaviate"):
-        save_mood_to_weaviate(mood, user_text)
-        st.success("Mood saved to Weaviate!")
+    #if mood and st.button("Save Mood to Weaviate"):
+    #    save_mood_to_weaviate(mood, user_text)
+     #   st.success("Mood saved to Weaviate!")
 
     with st.spinner("📝 Summarizing text..."):
         summarized_text = summarize_text_clarifai(user_text)
@@ -519,44 +519,44 @@ def main():
                 )
             
             # Database Integration Section
-            st.header("💾 Save to Weaviate Database")
-            if st.button("Save Mood to Weaviate"):
-                save_mood_to_weaviate(st.session_state.mood, user_text)
-                st.success("Mood saved to Weaviate!")                
-    elif method == "Observe Weaviate Database":
-        with st.spinner("🔍 Fetching moods and transcriptions from Weaviate..."):
-            moods_transcriptions = get_all_moods_and_transcriptions_from_weaviate()
+           # st.header("💾 Save to Weaviate Database")
+          #  if st.button("Save Mood to Weaviate"):
+          #      save_mood_to_weaviate(st.session_state.mood, user_text)
+           #     st.success("Mood saved to Weaviate!")                
+  #  elif method == "Observe Weaviate Database":
+   #     with st.spinner("🔍 Fetching moods and transcriptions from Weaviate..."):
+    #        moods_transcriptions = get_all_moods_and_transcriptions_from_weaviate()
 
-        if moods_transcriptions:
+   #     if moods_transcriptions:
             # Convert the list of dictionaries to a dataframe
-            df_moods_transcriptions = pd.DataFrame(moods_transcriptions)
+     #      df_moods_transcriptions = pd.DataFrame(moods_transcriptions)
 
             # Display the dataframe
-            st.dataframe(df_moods_transcriptions)
+     #       st.dataframe(df_moods_transcriptions)
 
             # Layout columns for buttons, visualization, and deletion functionality
-            col1, col2, col3 = st.columns([1, 2, 1])  # Creates three columns 
+      #      col1, col2, col3 = st.columns([1, 2, 1])  # Creates three columns 
 
-            with col1:
-                csv_data = df_moods_transcriptions.to_csv(index=False)
-                st.download_button(
-                    label="Download as CSV",
-                    data=csv_data,
-                    file_name="moods_transcriptions.csv",
-                    mime="text/csv",
-                )
+       #     with col1:
+        #        csv_data = df_moods_transcriptions.to_csv(index=False)
+        #        st.download_button(
+          #          label="Download as CSV",
+           #         data=csv_data,
+           #         file_name="moods_transcriptions.csv",
+           #         mime="text/csv",
+            #    )
 
-            with col3:
-                if st.button('Visualize Moods'):
-                    mood_counts = get_mood_counts_from_weaviate()
-                    fig = plot_top_moods(mood_counts)
-                    with col2:
-                        st.plotly_chart(fig, use_container_width=True)
-
+          #  with col3:
+            #    if st.button('Visualize Moods'):
+             #       mood_counts = get_mood_counts_from_weaviate()
+             #       fig = plot_top_moods(mood_counts)
+              #      with col2:
+          #              st.plotly_chart(fig, use_container_width=True)
+#
             # Display the total count using st.metric() beneath the columns
-            st.metric(label="Total Items in Database", value=len(df_moods_transcriptions), delta="1.0 +")
-        else:
-            st.write("No moods and transcriptions found in the database.")
+        #    st.metric(label="Total Items in Database", value=len(df_moods_transcriptions), delta="1.0 +")
+     #   else:
+  #          st.write("No moods and transcriptions found in the database.")
     elif method == "ChatBot":
         # App title
         st.sidebar.title('🤗💬 HugChat')
