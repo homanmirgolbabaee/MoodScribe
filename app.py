@@ -17,11 +17,11 @@ from streamlit_option_menu import option_menu
 from pytube import YouTube, Search
 
 # Configurations and Setups
-aai.settings.api_key = st.secrets["assemblyai"]["api_key"]
-PAT = st.secrets["clarifai"]["PAT"]
-USER_ID = st.secrets["clarifai"]["USER_ID"]
-APP_ID = st.secrets["clarifai"]["APP_ID"]
-WORKFLOW_ID = st.secrets["clarifai"]["WORKFLOW_ID"]
+aai.settings.api_key = "08ff03f3ed4e4c559c82ad4f0356220c"
+PAT = "51cd7e5b97bc4ebc8ef94e0e245cbf00"
+USER_ID = "homanfor1"
+APP_ID = "moodDetector"
+WORKFLOW_ID = "GPT-4-workflow-ai3yb8"
 
 # Initializing services
 transcriber = aai.Transcriber()
