@@ -7,7 +7,6 @@ import os
 from clarifai_grpc.channel.clarifai_channel import ClarifaiChannel
 from clarifai_grpc.grpc.api import resources_pb2, service_pb2, service_pb2_grpc
 from clarifai_grpc.grpc.api.status import status_code_pb2
-import weaviate
 import base64
 import pandas as pd
 import plotly.express as px
@@ -67,11 +66,11 @@ metadata = (('authorization', 'Key ' + PAT),)
 #####################
 #########################
 
-def save_mood_to_weaviate(mood, transcription):
-    mood_data = {
-        "mood": mood,
-        "transcription": transcription
-    }
+#def save_mood_to_weaviate(mood, transcription):
+   # mood_data = {
+    #    "mood": mood,
+    #    "transcription": transcription
+   # }
     
 #    try:
         # Use the create method to add data
@@ -340,9 +339,9 @@ def display_article_processing_results(text):
         st.text_area("Summarized Transcript:", summarized_text, height=250)
     
     # Option to save mood to Weaviate
-    if st.session_state.mood and st.button("Save Mood to Weaviate"):
-        save_mood_to_weaviate(st.session_state.mood, text)
-        st.success("Mood saved to Weaviate!")
+    #if st.session_state.mood and st.button("Save Mood to Weaviate"):
+     #   save_mood_to_weaviate(st.session_state.mood, text)
+    #    st.success("Mood saved to Weaviate!")
     # Step 2: Add button for classification and display results
     if st.button("Classify Text with Clarifai"):
         classified_text = classify_text_with_clarifai(text)
@@ -363,26 +362,26 @@ def to_csv_download_link(df, filename="data.csv"):
     b64 = base64.b64encode(csv.encode()).decode()  # some strings <-> bytes conversions necessary here
     return f'<a href="data:file/csv;base64,{b64}" download="{filename}" style="display: none;"></a><script>location.href="{filename}"</script>'
 
-def get_mood_counts_from_weaviate():
-    """Retrieve and parse moods from Weaviate, then count each mood's occurrences."""
+#def get_mood_counts_from_weaviate():
+  #  """Retrieve and parse moods from Weaviate, then count each mood's occurrences."""
     
     # Retrieve the data from Weaviate
-    query = weaviate_client.query.get("Mood", ["mood"]).with_limit(100).do()
+   # query = weaviate_client.query.get("Mood", ["mood"]).with_limit(100).do()
 
     # Initialize an empty list to store parsed moods
-    parsed_moods = []
+   # parsed_moods = []
 
     # Check if the data is in the expected structure
-    if "data" in query and "Get" in query["data"] and "Mood" in query["data"]["Get"]:
+  #  if "data" in query and "Get" in query["data"] and "Mood" in query["data"]["Get"]:
         # For each mood entry, split by commas and then strip whitespaces to parse individual moods
-        for entry in query["data"]["Get"]["Mood"]:
-            moods = entry["mood"].split(",")
-            parsed_moods.extend([mood.strip() for mood in moods])
+   #     for entry in query["data"]["Get"]["Mood"]:
+    #        moods = entry["mood"].split(",")
+    #        parsed_moods.extend([mood.strip() for mood in moods])
 
-    # Convert the list of parsed moods into a pandas series and get the value counts
-    mood_counts = pd.Series(parsed_moods).value_counts().to_dict()
+   # # Convert the list of parsed moods into a pandas series and get the value counts
+   # mood_counts = pd.Series(parsed_moods).value_counts().to_dict()
 
-    return mood_counts
+   # return mood_counts
 
 def plot_top_moods(mood_counts, top_n=3):
     """Generate a bar plot from the top_n moods with enhanced styling and better visualization."""
@@ -523,10 +522,14 @@ def main():
           #  if st.button("Save Mood to Weaviate"):
           #      save_mood_to_weaviate(st.session_state.mood, user_text)
            #     st.success("Mood saved to Weaviate!")                
-  #  elif method == "Observe Weaviate Database":
+    elif method == "Observe Weaviate Database":
    #     with st.spinner("🔍 Fetching moods and transcriptions from Weaviate..."):
     #        moods_transcriptions = get_all_moods_and_transcriptions_from_weaviate()
-
+        st.header("🗃️ SANDBOX EXPIRED ! ")
+        st.write("Sorry, this feature is no longer available. Please try again later.")
+        st.write("We apologize for any inconvenience.")
+        st.write("You can still try out the other features of the app.")
+        st.write("Thanks for your understanding.")
    #     if moods_transcriptions:
             # Convert the list of dictionaries to a dataframe
      #      df_moods_transcriptions = pd.DataFrame(moods_transcriptions)
